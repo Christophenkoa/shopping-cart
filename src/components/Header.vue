@@ -22,7 +22,7 @@
                     <li class="nav-item text-right">
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
                             <img src="https://i.pinimg.com/originals/15/4f/df/154fdf2f2759676a96e9aed653082276.png"/>
-                            shopping card<span>(1)</span>
+                            shopping card<span>({{countItem}})</span>
                         </a>
                     </li>
                 </ul>
@@ -33,7 +33,10 @@
 
 <script>
     export default {
-        name: "Header"
+        name: "Header",
+        props: {
+            countItem: Number,
+        }
     }
 </script>
 

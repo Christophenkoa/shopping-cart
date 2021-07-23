@@ -2,7 +2,7 @@
 
     <div class="container">
 
-        <Header/>
+        <Header :count-item="userItems.length"/>
 
         <div class="title">
             Our products
@@ -56,7 +56,15 @@ export default {
               }
           });
           console.log(this.userItems);
-      }
+      },
+
+      /*increaseQty(id) {
+          console.log("increase item " + id);
+      },
+
+      decreaseQty(id) {
+          console.log("decrease item " + id);
+      },*/
     },
 
     created() {

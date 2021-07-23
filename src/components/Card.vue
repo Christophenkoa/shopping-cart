@@ -9,44 +9,30 @@
                         <div class="col">
                             <h4><b>Shopping Cart</b></h4>
                         </div>
-                        <div class="col align-self-center text-right text-muted">3 items</div>
+                        <div class="col align-self-center text-right text-muted">{{items.length}} items</div>
                     </div>
                 </div>
 
-                <div class="row border-bottom">
+                <div class="row border-bottom" :key="item.id" v-for="item in items">
                     <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg" alt=""></div>
+                        <div class="col-2"><img class="img-fluid" :src="item.image" :alt="item.name"></div>
                         <div class="col">
-                            <div class="row">Cotton T-shirt</div>
+                            <div class="row"> {{item.name}}</div>
                         </div>
-                        <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="row border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/ba3tvGm.jpg" alt=""></div>
+
                         <div class="col">
-                            <div class="row">Cotton T-shirt</div>
+                            <a @click="decreaseQty(item)">-</a>
+                            <a class="border"> {{item.min_qty}}</a>
+                            <a @click="increaseQty(item)">+</a>
                         </div>
-                        <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="row  border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg" alt=""></div>
-                        <div class="col">
-                            <div class="row">Cotton T-shirt</div>
-                        </div>
-                        <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
+
+                        <div class="col">XAF {{item.price}} <span class="close" @click="removeItem(items, item.id)">&#10005;</span></div>
                     </div>
                 </div>
 
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">&euro; 137.00</div>
+                    <div class="col text-right">XAF {{totalPrice(items)}}</div>
                 </div>
 
             </div>
@@ -61,6 +47,41 @@
         props: {
             items: Array,
         },
+        methods: {
+            totalPrice (items) {
+                let sum = 0;
+                for (let i = 0; i < items.length; i++) {
+                    sum += items[i].price * items[i].min_qty;
+                }
+                return sum;
+            },
+
+            increaseQty(item) {
+                item.min_qty ++;
+                console.log(item);
+            },
+
+            decreaseQty(item) {
+
+                // some works should be add here
+                if(item.min_qty > 0) {
+                    item.min_qty --;
+
+                }else {
+                    alert("You cannot reduce less than the minimum price");
+                }
+            },
+
+            // work need to be done here
+            removeItem(items, id) {
+                if(confirm('Are you sure ?')) {
+                    // items.filters( (item) => item.id !== id );
+                    console.log(id);
+                    console.log(items);
+                }
+            }
+        },
+        //emits: ['increase-quantity', 'decrease-quantity'],
     }
 </script>
 
